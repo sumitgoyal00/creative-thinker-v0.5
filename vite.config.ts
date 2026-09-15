@@ -5,7 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return { 
-    base: '/Creativethinker/',
+    base: '/creative-thinker-v0.5/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

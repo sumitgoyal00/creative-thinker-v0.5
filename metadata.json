@@ -1,0 +1,7 @@
+{
+  "name": "Creative Thinker",
+  "description": "High-end cinematic video production, 3D animation, and motion graphics agency.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -76,9 +76,9 @@ export const LatestProjectsStrip: React.FC<LatestProjectsStripProps> = ({ onOpen
                 {project.duration}
               </div>
 
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="w-12 h-12 rounded-full bg-[#90D5FF] text-black flex items-center justify-center shadow-lg">
-                  <Play className="w-5 h-5 fill-current ml-0.5" />
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                <div className="w-14 h-14 rounded-full bg-black/50 border border-white/30 text-white flex items-center justify-center backdrop-blur-[2px] transition-all duration-200 ease-out group-hover:scale-110 group-hover:bg-black/70 group-hover:border-white/60 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+                  <Play className="w-[22px] h-[22px] fill-white text-white ml-[3px] transition-transform duration-200" />
                 </div>
               </div>
             </div>

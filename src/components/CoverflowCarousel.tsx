@@ -359,14 +359,12 @@ export const CoverflowCarousel: React.FC<CoverflowCarouselProps> = ({ onOpenProj
                     </span>
                   </div>
 
-                  {/* Center Play Icon on center card hover: Clean minimal circular play button, no heavy neon glow */}
-                  {isCenter && (
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                      <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-black/80 border border-white/40 text-white flex items-center justify-center backdrop-blur-sm group-hover:border-[#90D5FF] group-hover:text-[#90D5FF] group-hover:scale-105 transition-all duration-300 shadow-2xl">
-                        <Play className="w-5 h-5 sm:w-6 sm:h-6 fill-current ml-0.5" />
-                      </div>
+                  {/* Center Play Icon Overlay: Visible on all cards at all times with circular semi-transparent dark bg and white play icon; scales & deepens on hover */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                    <div className="w-14 h-14 rounded-full bg-black/50 border border-white/30 text-white flex items-center justify-center backdrop-blur-[2px] transition-all duration-200 ease-out group-hover:scale-110 group-hover:bg-black/70 group-hover:border-white/60 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+                      <Play className="w-[22px] h-[22px] fill-white text-white ml-[3px] transition-transform duration-200" />
                     </div>
-                  )}
+                  </div>
 
                   {/* Bottom: Project Title & Specs */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 bg-gradient-to-t from-black via-black/90 to-transparent">

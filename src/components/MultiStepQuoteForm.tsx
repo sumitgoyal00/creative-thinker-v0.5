@@ -134,7 +134,7 @@ export const MultiStepQuoteForm: React.FC<MultiStepQuoteFormProps> = ({ initialS
       `*Deliverables:* ${formData.deliverableFormat.join(', ')}\n` +
       `*Brief:* ${formData.brief || 'Custom brief via inquiry.'}`
     );
-    return `https://wa.me/18005550199?text=${text}`;
+    return `https://wa.me/917042693329?text=${text}`;
   };
 
   return (

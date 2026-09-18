@@ -1,34 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import slide1 from '../assets/images/slide 1 background.png';
-import slide2 from '../assets/images/slide 2 background.png';
-import slide3 from '../assets/images/slide 3 background.png';
-import slide4 from '../assets/images/slide 4 background.png';
-import slide5 from '../assets/images/slide 5 background.png';
-
-const slides = [slide1, slide2, slide3, slide4, slide5];
+import React, { useEffect, useRef } from 'react';
+import posterImg from '../assets/images/slide 1 background.png';
 
 interface HeroProps {
   onOpenShowreel?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Preload all slide images to prevent blank frames or flickering
   useEffect(() => {
-    slides.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, []);
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
 
-  // Auto-advance slide every 4.5 seconds with infinite loop
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4500);
+      const attemptPlay = () => {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay policy fallback
+          });
+        }
+      };
 
-    return () => clearInterval(interval);
+      attemptPlay();
+      video.addEventListener('loadedmetadata', attemptPlay);
+      video.addEventListener('canplay', attemptPlay);
+
+      return () => {
+        video.removeEventListener('loadedmetadata', attemptPlay);
+        video.removeEventListener('canplay', attemptPlay);
+      };
+    }
   }, []);
 
   return (
@@ -36,19 +40,20 @@ export const Hero: React.FC<HeroProps> = () => {
       id="hero-showreel-section"
       className="hero relative w-full aspect-[21/9] min-h-[300px] sm:min-h-[340px] max-h-[560px] mt-16 sm:mt-20 overflow-hidden bg-[#0D0D0D] select-none group"
     >
-      {/* Background Auto-sliding Crossfade Image Slideshow (z-index: 0) */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        {slides.map((slideSrc, index) => (
-          <img
-            key={index}
-            src={slideSrc}
-            alt={`Hero background slide ${index + 1}`}
-            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
-            loading="eager"
-            fetchPriority={index === 0 ? 'high' : 'auto'}
-          />
-        ))}
-      </div>
+      {/* Background Autoplaying Looping Video (z-index: 0) */}
+      <video
+        ref={videoRef}
+        src="/videos/hero-bg.mp4"
+        poster={posterImg}
+        className="hero-video absolute inset-0 w-full h-full object-cover object-center z-0 filter brightness-[0.75] contrast-[1.05]"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        <source src="/videos/hero-bg.mp4" type="video/mp4" />
+      </video>
 
       {/* Optical Overlays (z-index: 1) */}
       <div className="hero-overlay absolute inset-0 w-full h-full pointer-events-none z-[1] bg-gradient-to-b from-[#0D0D0D]/40 to-[#0D0D0D]/85" />
@@ -99,3 +104,4 @@ export const Hero: React.FC<HeroProps> = () => {
     </section>
   );
 };
+

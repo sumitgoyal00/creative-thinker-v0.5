@@ -24,7 +24,7 @@ export const ContactSection: React.FC = () => {
       `*Discipline:* ${formData.discipline}\n` +
       `*Brief:* ${formData.brief || 'Custom campaign brief'}`
     );
-    return `https://wa.me/18005550199?text=${text}`;
+    return `https://wa.me/917042693329?text=${text}`;
   };
 
   return (
